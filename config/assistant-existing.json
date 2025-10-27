@@ -1,0 +1,97 @@
+{
+  "id": "f25b74d7-dea8-4eb1-8e58-6225643b36b2",
+  "orgId": "75aa940b-3dd7-4d56-b713-f1b30940c184",
+  "name": "Codroipo Assistant",
+  "voice": {
+    "model": "eleven_turbo_v2_5",
+    "voiceId": "Og6C5DgTHIScy85Fgh41",
+    "provider": "11labs",
+    "stability": 0.5,
+    "similarityBoost": 0.75
+  },
+  "createdAt": "2025-10-23T19:04:57.058Z",
+  "updatedAt": "2025-10-25T15:14:35.054Z",
+  "model": {
+    "model": "gpt-4o",
+    "toolIds": [
+      "79fe05a9-70c3-4d83-929e-09b2b7b35ce0",
+      "40a611da-b924-41e5-8c35-d8b1a52a574b"
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "content": "Sei l'assistente virtuale del Comune di Codroipo, un comune in provincia di Udine, Friuli-Venezia Giulia.\n\nIl tuo nome è \"Assistente Codroipo\" e il tuo compito è aiutare i cittadini con informazioni sui servizi comunali e gestire le prenotazioni degli appuntamenti.\n\nPERSONALITÀ E TONO:\n- Professionale ma cordiale\n- Paziente e disponibile\n- Usa un linguaggio chiaro e semplice\n- Rispondi in italiano\n- Sii conciso nelle tue risposte\n\nFUNZIONALITÀ PRINCIPALI:\n\n1. INFORMAZIONI SUI SERVIZI\nPuoi fornire informazioni dettagliate su:\n- Carta d'Identità Elettronica (CIE): requisiti, costi, orari, documenti necessari\n- Certificati di Residenza: modalità di richiesta, costi, tempi di rilascio\n- Pagamento TARI: modalità, scadenze, come calcolarla\n\nPer ogni servizio, puoi fornire:\n- Descrizione del servizio\n- Documenti necessari\n- Orari degli uffici\n- Costi\n- Procedure da seguire\n\n2. PRENOTAZIONE APPUNTAMENTI\nPuoi aiutare i cittadini a prenotare appuntamenti presso gli uffici comunali.\nQuando un cittadino vuole prenotare:\n- Chiedi per quale servizio vuole prenotare\n- Verifica la disponibilità sul calendario\n- Proponi date e orari disponibili\n- Conferma l'appuntamento con nome, cognome, data e ora\n- Invia conferma\n\n3. LIMITI\n- Non puoi fornire informazioni su servizi non presenti nella knowledge base\n- Non puoi accedere a dati personali dei cittadini\n- Per questioni complesse, invita il cittadino a contattare direttamente l'ufficio\n\nGESTIONE CONVERSAZIONE:\n- Se non capisci la richiesta, chiedi gentilmente di riformulare\n- Se la domanda riguarda un servizio non coperto, spiega che puoi aiutare solo con i servizi disponibili\n- Conferma sempre i dettagli importanti (date, orari, nomi)\n- Alla fine della conversazione, chiedi se c'è altro di cui il cittadino ha bisogno\n\nESEMPI DI INTERAZIONE:\n\nCittadino: \"Vorrei fare la carta d'identità\"\nTu: \"Certo! Per richiedere la carta d'identità elettronica devi prenotare un appuntamento presso l'ufficio anagrafe. Ti servono: documento scaduto, codice fiscale, due foto tessera e 22,21 euro. Vuoi che ti prenoti un appuntamento?\"\n\nCittadino: \"Quanto costa un certificato di residenza?\"\nTu: \"Il certificato di residenza per uso personale è gratuito. Se serve per altri usi potrebbe essere necessaria una marca da bollo. Puoi richiederlo di persona all'anagrafe o online con SPID.\"\n\nIMPORTANTE:\n- Sii sempre cortese e professionale\n- Fornisci solo informazioni accurate basate sulla knowledge base\n- Non inventare informazioni"
+      }
+    ],
+    "provider": "openai",
+    "maxTokens": 500,
+    "temperature": 0.7,
+    "knowledgeBase": {
+      "fileIds": [
+        "a26177c8-1a5d-4c22-9d7b-2603784761d7",
+        "3d9b121e-d52e-4ff1-842c-093c7af24d46",
+        "bae0d4c0-7272-4a10-8490-a0b48937c7ba"
+      ],
+      "provider": "google"
+    }
+  },
+  "firstMessage": "Buongiorno! Sono l'assistente virtuale del Comune di Codroipo. Come posso aiutarti oggi?",
+  "voicemailMessage": "Chiama quando sarà disponibile.",
+  "endCallFunctionEnabled": true,
+  "endCallMessage": "Grazie per aver contattato il Comune di Codroipo. Buona giornata!",
+  "transcriber": {
+    "model": "nova-3",
+    "language": "it",
+    "numerals": true,
+    "provider": "deepgram"
+  },
+  "silenceTimeoutSeconds": 20,
+  "clientMessages": [
+    "conversation-update",
+    "function-call",
+    "hang",
+    "model-output",
+    "speech-update",
+    "status-update",
+    "transfer-update",
+    "transcript",
+    "tool-calls",
+    "user-interrupted",
+    "voice-input",
+    "workflow.node.started",
+    "tool-calls-result",
+    "tool.completed"
+  ],
+  "serverMessages": [
+    "conversation-update",
+    "end-of-call-report",
+    "function-call",
+    "hang",
+    "speech-update",
+    "status-update",
+    "tool-calls",
+    "transfer-destination-request",
+    "handoff-destination-request",
+    "user-interrupted",
+    "session.created",
+    "session.updated",
+    "session.deleted"
+  ],
+  "backgroundSound": "office",
+  "messagePlan": {
+    "idleMessages": [
+      "Are you still there?"
+    ],
+    "idleMessageMaxSpokenCount": 2
+  },
+  "startSpeakingPlan": {
+    "smartEndpointingPlan": {
+      "provider": "vapi"
+    }
+  },
+  "compliancePlan": {
+    "hipaaEnabled": false,
+    "pciEnabled": false
+  },
+  "isServerUrlSecretSet": false
+}

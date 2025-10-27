@@ -1,0 +1,128 @@
+{
+  "type": "apiRequest",
+  "name": "send_appointment_confirmation_email",
+  "async": false,
+  "messages": [
+    {
+      "type": "request-start",
+      "content": "Un attimo, sto inviando l'email di conferma..."
+    },
+    {
+      "type": "request-complete",
+      "content": "Perfetto! Ho inviato l'email di conferma con tutti i dettagli dell'appuntamento."
+    },
+    {
+      "type": "request-failed",
+      "content": "Mi dispiace, si è verificato un errore nell'invio dell'email. L'appuntamento è comunque stato creato nel calendario. Le fornirò i dettagli verbalmente."
+    }
+  ],
+  "function": {
+    "name": "send_appointment_confirmation_email",
+    "description": "Invia una email di conferma appuntamento al cittadino con tutti i dettagli del servizio, data, ora e lista dei documenti necessari. DA CHIAMARE IMMEDIATAMENTE DOPO aver creato l'evento sul Google Calendar.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "citizen_email",
+        "citizen_name",
+        "service",
+        "date",
+        "time"
+      ],
+      "properties": {
+        "citizen_email": {
+          "type": "string",
+          "description": "Indirizzo email del cittadino dove inviare la conferma (es: 'mario.rossi@example.com')"
+        },
+        "citizen_name": {
+          "type": "string",
+          "description": "Nome e cognome completo del cittadino (es: 'Mario Rossi')"
+        },
+        "service": {
+          "type": "string",
+          "description": "Nome completo del servizio prenotato (es: 'Carta d'Identità Elettronica', 'Certificato di Residenza', 'Consulenza TARI')"
+        },
+        "date": {
+          "type": "string",
+          "description": "Data dell'appuntamento in formato YYYY-MM-DD (es: '2025-11-10')"
+        },
+        "time": {
+          "type": "string",
+          "description": "Ora dell'appuntamento in formato HH:MM (es: '10:00', '14:30')"
+        },
+        "documents": {
+          "type": "array",
+          "description": "Lista dei documenti necessari da portare all'appuntamento. Usa la lista corretta per il servizio specifico.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "url": "https://sandbox.api.mailtrap.io/api/send/1018537",
+  "method": "POST",
+  "variableExtractionPlan": {
+    "schema": {
+      "type": "object",
+      "required": [
+        "from",
+        "to",
+        "subject",
+        "text",
+        "category"
+      ],
+      "properties": {
+        "from": {
+          "type": "object",
+          "description": "Il mittente della mail",
+          "required": [
+            "email",
+            "name"
+          ],
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "Email mittente: info@comune-codroipo.it",
+              "default": "info@comune-codroipo.it"
+            },
+            "name": {
+              "type": "string",
+              "description": "Nome mittente: Comune di Codroipo",
+              "default": "Comune di Codroipo"
+            }
+          }
+        },
+        "to": {
+          "type": "array",
+          "description": "Lista destinatari email",
+          "items": {
+            "type": "object",
+            "required": [
+              "email"
+            ],
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "Email del cittadino presa dal parametro citizen_email"
+              }
+            }
+          }
+        },
+        "subject": {
+          "type": "string",
+          "description": "Oggetto email: 'Conferma Appuntamento - [nome servizio]'"
+        },
+        "text": {
+          "type": "string",
+          "description": "Corpo email con tutti i dettagli dell'appuntamento: nome cittadino, servizio, data, ora, luogo e lista documenti"
+        },
+        "category": {
+          "type": "string",
+          "description": "Categoria email",
+          "default": "Conferma Appuntamento"
+        }
+      }
+    },
+    "aliases": []
+  }
+}

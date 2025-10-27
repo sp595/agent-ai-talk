@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    // Python Development
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.black-formatter",
+    "ms-python.debugpy",
+
+    // API Testing
+    "humao.rest-client",
+
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    "bierner.markdown-preview-github-styles",
+
+    // Git
+    "eamodio.gitlens",
+
+    // Utilities
+    "streetsidesoftware.code-spell-checker",
+    "oderwat.indent-rainbow",
+    "usernamehw.errorlens",
+
+    // JSON
+    "ZainChen.json"
+  ]
+}
