@@ -88,7 +88,6 @@ MAILTRAP_API_TOKEN=your_key    # Da https://mailtrap.io/api-tokens
 
 - `scripts/README.md` - Script Python disponibili
 - `scraper/README.md` - Scraping e knowledge base
-- `tools/MAILTRAP-SETUP.md` - Setup email Mailtrap
 
 ## 🧪 Test
 
@@ -110,9 +109,6 @@ python tools/test_mailtrap.py
 
 **"Email in inglese"**
 → Dashboard → Assistant → Voice → Lingua: it-IT
-
-**"Pronuncia inglese (2025 = two thousand)"**
-→ Aggiorna system prompt con regole pronuncia
 
 ## 🔗 Links
 
