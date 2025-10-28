@@ -1,0 +1,26 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" rx="4" fill="#1e3a8a"/>
+
+  <!-- Palazzo comunale stilizzato -->
+  <g transform="translate(6, 8)">
+    <!-- Base palazzo -->
+    <rect x="2" y="10" width="16" height="8" fill="#ffffff"/>
+
+    <!-- Colonne -->
+    <rect x="3" y="12" width="1.5" height="6" fill="#1e3a8a"/>
+    <rect x="7.25" y="12" width="1.5" height="6" fill="#1e3a8a"/>
+    <rect x="11.5" y="12" width="1.5" height="6" fill="#1e3a8a"/>
+    <rect x="15.75" y="12" width="1.5" height="6" fill="#1e3a8a"/>
+
+    <!-- Tetto triangolare -->
+    <path d="M 10 2 L 1 10 L 19 10 Z" fill="#dc2626"/>
+
+    <!-- Torre campanaria -->
+    <rect x="8" y="4" width="4" height="6" fill="#ffffff"/>
+    <rect x="7.5" y="3" width="5" height="1" fill="#dc2626"/>
+
+    <!-- Porta -->
+    <rect x="8" y="14" width="4" height="4" fill="#1e3a8a" rx="0.5"/>
+  </g>
+</svg>

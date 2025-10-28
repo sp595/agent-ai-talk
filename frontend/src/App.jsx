@@ -109,15 +109,38 @@ function App() {
       <div className="container">
         {/* Header */}
         <header className="header">
+          <div className="tricolore-bar"></div>
           <div className="logo">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="40" height="40" rx="8" fill="#2563eb"/>
-              <path d="M20 10L28 15V25L20 30L12 25V15L20 10Z" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
-              <circle cx="20" cy="20" r="3" fill="white"/>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Background */}
+              <rect width="48" height="48" rx="8" fill="#1e3a8a"/>
+
+              {/* Palazzo comunale stilizzato */}
+              <g transform="translate(8, 10)">
+                {/* Base palazzo */}
+                <rect x="3" y="16" width="26" height="12" fill="#ffffff"/>
+
+                {/* Colonne */}
+                <rect x="5" y="18" width="2" height="10" fill="#1e3a8a"/>
+                <rect x="11" y="18" width="2" height="10" fill="#1e3a8a"/>
+                <rect x="17" y="18" width="2" height="10" fill="#1e3a8a"/>
+                <rect x="23" y="18" width="2" height="10" fill="#1e3a8a"/>
+
+                {/* Tetto triangolare */}
+                <path d="M 16 4 L 2 16 L 30 16 Z" fill="#ce2b37"/>
+
+                {/* Torre campanaria */}
+                <rect x="13" y="6" width="6" height="10" fill="#ffffff"/>
+                <rect x="12.5" y="5" width="7" height="1.5" fill="#ce2b37"/>
+                <circle cx="16" cy="10" r="1.5" fill="#1e3a8a"/>
+
+                {/* Porta */}
+                <rect x="13.5" y="22" width="5" height="6" fill="#1e3a8a" rx="0.5"/>
+              </g>
             </svg>
             <div>
               <h1>Comune di Codroipo</h1>
-              <p>Assistente Vocale AI</p>
+              <p>Assistente Virtuale AI</p>
             </div>
           </div>
         </header>
@@ -126,8 +149,8 @@ function App() {
         <main className="main">
           <div className="card">
             <div className="card-header">
-              <h2>Demo Assistente Vocale</h2>
-              <p>Prova l'assistente AI per i servizi comunali</p>
+              <h2>Assistente Virtuale del Comune</h2>
+              <p>Servizio di assistenza vocale AI per cittadini e imprese</p>
             </div>
 
             <div className="card-body">

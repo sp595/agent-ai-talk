@@ -1,10 +1,12 @@
-/* Reset & Variables */
+/* Reset & Variables - Tema Istituzionale Comune */
 :root {
-  --primary: #2563eb;
-  --primary-dark: #1e40af;
-  --danger: #dc2626;
-  --danger-dark: #b91c1c;
-  --success: #16a34a;
+  --primary: #1e3a8a;           /* Blu istituzionale */
+  --primary-dark: #1e40af;      /* Blu scuro */
+  --primary-light: #3b82f6;     /* Blu chiaro */
+  --danger: #b91c1c;            /* Rosso bordeaux */
+  --danger-dark: #991b1b;       /* Rosso scuro */
+  --success: #15803d;           /* Verde istituzionale */
+  --success-light: #22c55e;     /* Verde chiaro */
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -13,11 +15,14 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
+  --comune-blue: #003d7a;       /* Blu scuro istituzionale */
+  --comune-red: #ce2b37;        /* Rosso tricolore */
+  --comune-green: #009246;      /* Verde tricolore */
 }
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #003d7a 50%, #1e40af 100%);
   padding: 2rem 1rem;
 }
 
@@ -29,6 +34,27 @@
 /* Header */
 .header {
   margin-bottom: 2rem;
+  position: relative;
+}
+
+/* Barra tricolore decorativa */
+.tricolore-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right,
+    var(--comune-green) 0%,
+    var(--comune-green) 33.33%,
+    white 33.33%,
+    white 66.66%,
+    var(--comune-red) 66.66%,
+    var(--comune-red) 100%
+  );
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -37,6 +63,7 @@
   gap: 1rem;
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-top: 1rem;
 }
 
 .logo h1 {
@@ -304,10 +331,10 @@
   padding-left: 1.25rem;
 }
 
-/* Info Section */
+/* Info Section - Stile istituzionale */
 .info-section {
-  background: #fff7ed;
-  border: 2px solid #fed7aa;
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
   border-radius: 0.75rem;
   padding: 1.5rem;
 }
@@ -315,7 +342,7 @@
 .info-section h4 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--gray-900);
+  color: var(--primary);
   margin: 0 0 1rem 0;
 }
 
@@ -336,7 +363,7 @@
   content: '→';
   position: absolute;
   left: 0;
-  color: #f59e0b;
+  color: var(--primary);
   font-weight: bold;
 }
 
