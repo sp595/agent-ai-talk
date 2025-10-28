@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
 import Vapi from '@vapi-ai/web'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 function App() {
@@ -223,7 +223,7 @@ function App() {
           </div>
 
           {/* Tech Info Card */}
-          <div className="card tech-card">
+          {/* <div className="card tech-card">
             <div className="card-body">
               <h3>Informazioni Tecniche</h3>
               <div className="tech-info">
@@ -245,13 +245,19 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </main>
 
         {/* Footer */}
         <footer className="footer">
-          <p>Demo Tecnica - Assistente AI Comune di Codroipo</p>
-          <p>Sviluppato per test tecnico Fullstack Developer AI & Automation</p>
+          <div className="footer-content">
+            <p className="footer-main">
+              Assistente Virtuale AI - Comune di Codroipo
+            </p>
+            <p className="footer-copyright">
+              © {new Date().getFullYear()} <a href="https://cmdc.it" target="_blank" rel="noopener noreferrer" className="cmdc-link">cmdc</a>
+            </p>
+          </div>
         </footer>
       </div>
     </div>

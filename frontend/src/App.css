@@ -413,8 +413,49 @@
   opacity: 0.9;
 }
 
-.footer p {
-  margin: 0.25rem 0;
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-main {
+  font-weight: 500;
+  margin: 0;
+}
+
+.footer-copyright {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.footer-tech {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* CMDC Link */
+.cmdc-link {
+  color: rgb(116, 254, 255);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.cmdc-link:hover {
+  color: rgb(136, 255, 255);
+  text-shadow: 0 0 8px rgba(116, 254, 255, 0.5);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 /* Scrollbar Styling */
