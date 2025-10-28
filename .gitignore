@@ -39,7 +39,7 @@ ENV/
 .env.*.local
 
 # Vapi.ai generated files
-.assistant-id
+#.assistant-id
 .knowledge-base-ids.txt
 assistant-config-backup.json
 
