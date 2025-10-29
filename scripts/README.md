@@ -2,16 +2,14 @@
 
 Script Python per gestire l'assistente vocale su VAPI.
 
-## 🚀 Workflow Semplificato
+## 🚀 Workflow Completamente Automatico
 
-Il workflow è stato ottimizzato per essere più lineare e automatico:
+Il workflow è completamente automatizzato:
 
-1. **`create_assistant.py`** - Crea l'assistente base
-2. **`create_secret.py`** - Crea secret
-3. **`upload_tool.py`** - Gestisce secrets + crea tool email
-4. **`create_tool.py`** - Crea TUTTI i tool (email, calendar) in una volta
-5. **`upload_knowledge_base.py`** - Carica file knowledge base
-6. **`update_assistant.py`** - Aggiorna assistente e linka automaticamente KB + tools
+1. **`create_assistant.py`** - Crea l'assistente base (da template)
+2. **`upload_knowledge_base.py`** - Carica KB + auto-link all'assistente
+3. **`create_tool.py`** - Crea TUTTI i tool (auto-crea credential + auto-link)
+4. **`update_assistant.py`** - Aggiorna prompt/config (opzionale)
 
 ## 📋 Script Disponibili
 
@@ -68,58 +66,23 @@ python scripts/get_assistant_info.py --save
 
 ### `upload_knowledge_base.py` - Carica KB
 
-Carica file Markdown su VAPI (genera `.knowledge-base-ids`).
+Carica file Markdown su VAPI e linka automaticamente all'assistente.
 
 ```bash
 python scripts/upload_knowledge_base.py
 ```
 
-### `create_secret.py` - Crea Secret
+**Funzionalità automatiche**:
 
-Crea un secret criptato su Vapi.ai per autenticazione sicura.
-
-```bash
-# Crea secret Mailtrap (da .env)
-python scripts/create_secret.py
-
-# Crea secret custom
-python scripts/create_secret.py --name my_secret --value "abc123"
-
-# Forza creazione senza conferma
-python scripts/create_secret.py --force
-```
-
-**Usa questo se**:
-
-- Vuoi gestire secrets separatamente dai tool
-- Hai bisogno di creare secrets per altri tool (non solo email)
-
-### `upload_tool.py` - Gestisce Secret + Tool Email (All-in-One)
-
-Crea automaticamente il secret Mailtrap (se non esiste) E il tool email con autenticazione Bearer.
-
-```bash
-# Auto: crea secret + tool email
-python scripts/upload_tool.py
-
-# Forza creazione nuovo tool
-python scripts/upload_tool.py --create
-
-# Aggiorna tool esistente
-python scripts/upload_tool.py --update TOOL_ID
-```
-
-**Usa questo se**:
-
-- Vuoi fare tutto in un comando
-- Setup rapido del tool email
-- Non hai bisogno di gestire secrets custom
+- ✅ Carica tutti i file `.md` da `knowledge-base/`
+- ✅ Salva IDs in `.knowledge-base-ids`
+- ✅ Se esiste `.assistant-id`, linka automaticamente KB all'assistente
 
 ### `create_tool.py` - Crea TUTTI i Tool
 
-Crea tutti e 3 i tool in una volta:
+Crea tutti e 3 i tool in una volta con auto-setup credential:
 
-- Email tool (con secret se disponibile)
+- Email tool (crea e linka credential Mailtrap automaticamente)
 - Calendar check tool
 - Calendar create tool
 
@@ -127,61 +90,40 @@ Crea tutti e 3 i tool in una volta:
 python scripts/create_tool.py
 ```
 
-Conferma e crea automaticamente tutti i tool. Salva IDs in `.tool-ids`.
+**Funzionalità automatiche**:
+
+- ✅ Verifica se esiste credential Mailtrap
+- ✅ Se non esiste, la crea automaticamente da `MAILTRAP_API_TOKEN` (.env)
+- ✅ Linka credential al tool email
+- ✅ Salva IDs in `.tool-ids`
+- ✅ Se esiste `.assistant-id`, linka automaticamente tools all'assistente
 
 ## 🔄 Workflow Completi
 
 ### Setup Completo da Zero
 
-**Opzione A - All-in-One (Consigliato)**:
+**Workflow Consigliato (Completamente Automatico)**:
 
 ```bash
 # 1. Crea assistente base
 python scripts/create_assistant.py
 
-# 2. Carica knowledge base
+# 2. Carica knowledge base (auto-link)
 python scripts/upload_knowledge_base.py
 
-# 3. Crea secret + tool email (tutto insieme)
-python scripts/upload_tool.py
-
-# 4. Crea tutti i tool (calendar check & create)
+# 3. Crea TUTTI i tool (auto-crea credential + auto-link)
 python scripts/create_tool.py
 
-# 5. Aggiorna e linka automaticamente KB + tools
-python scripts/update_assistant.py
-
-# 6. Verifica
-python scripts/get_assistant_info.py
-```
-
-**Opzione B - Modulare**:
-
-```bash
-# 1. Crea assistente base
-python scripts/create_assistant.py
-
-# 2. Carica knowledge base
-python scripts/upload_knowledge_base.py
-
-# 3. Crea secret Mailtrap
-python scripts/create_secret.py
-
-# 4. Crea TUTTI i tool (email con secret, calendar)
-python scripts/create_tool.py
-
-# 5. Aggiorna e linka automaticamente KB + tools
-python scripts/update_assistant.py
-
-# 6. Verifica
+# 4. Verifica (opzionale)
 python scripts/get_assistant_info.py
 ```
 
 **Vantaggi**:
 
-- ✅ Nessuno script di "link" manuale
-- ✅ KB e tools linkati automaticamente
-- ✅ Due approcci disponibili (all-in-one o modulare)
+- ✅ Auto-creazione credential Mailtrap
+- ✅ Auto-linking KB (upload_knowledge_base.py)
+- ✅ Auto-linking tools (create_tool.py)
+- ✅ Workflow ridotto a 3 comandi principali!
 
 ### Aggiorna Prompt
 
@@ -219,8 +161,8 @@ MAILTRAP_API_TOKEN=your_mailtrap_token
 |------|-------------|-------------|
 | `.assistant-id` | `create_assistant.py` | ID assistente |
 | `.knowledge-base-ids` | `upload_knowledge_base.py` | IDs file KB |
-| `.secret-ids.json` | `upload_tool.py` | Mapping secret names → IDs |
-| `.tool-ids` | `upload_tool.py` + `create_tool.py` | IDs tools |
+| `.secret-ids.json` | `create_tool.py` | Mapping credential names → IDs |
+| `.tool-ids` | `create_tool.py` | IDs tools |
 
 **IMPORTANTE**: Tutti in `.gitignore` per sicurezza!
 

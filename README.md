@@ -17,15 +17,11 @@ echo "MAILTRAP_API_TOKEN=your_key" >> .env
 # 3. Crea assistente
 python scripts/create_assistant.py
 
-# 4. Carica knowledge base
+# 4. Carica knowledge base (auto-link)
 python scripts/upload_knowledge_base.py
 
-# 5. Configura tools (email + calendar)
-python scripts/upload_tool.py      # Email tool
-python scripts/create_tool.py      # Tutti i tools
-
-# 6. Linka tutto
-python scripts/update_assistant.py
+# 5. Crea tools (auto-crea credential + auto-link)
+python scripts/create_tool.py
 ```
 
 ## 📁 Struttura
@@ -65,22 +61,14 @@ python scripts/get_assistant_info.py
 
 ### Knowledge Base
 ```bash
-# Carica file KB su VAPI
+# Carica file KB su VAPI (auto-link se esiste .assistant-id)
 python scripts/upload_knowledge_base.py
-
-# Poi linka con update_assistant.py
 ```
 
 ### Tools
 ```bash
-# Crea secret + email tool (all-in-one)
-python scripts/upload_tool.py
-
-# Oppure modularmente
-python scripts/create_secret.py
-python scripts/create_tool.py  # Crea tutti i tools
-
-# Poi linka con update_assistant.py
+# Crea tutti i tools (auto-crea credential + auto-link)
+python scripts/create_tool.py
 ```
 
 ## ⚙️ Configurazione
