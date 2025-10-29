@@ -40,7 +40,8 @@ ENV/
 
 # Vapi.ai generated files
 #.assistant-id
-.knowledge-base-ids.txt
+#.knowledge-base-ids
+#.secret-ids.json
 assistant-config-backup.json
 
 # OS

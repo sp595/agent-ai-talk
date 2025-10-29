@@ -21,6 +21,18 @@ except ImportError:
 VAPI_API_KEY = os.getenv('VAPI_API_KEY')
 VAPI_BASE_URL = 'https://api.vapi.ai'
 
+def load_template_config():
+    """Carica la configurazione template da assistant-existing.json."""
+    template_path = Path(__file__).parent.parent / 'config' / 'assistant-existing.json'
+
+    if not template_path.exists():
+        print("ATTENZIONE: Template assistant-existing.json non trovato!")
+        print("  File atteso: {}".format(template_path))
+        return None
+
+    with open(template_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
 def load_system_prompt():
     """Carica il system prompt dal file."""
     prompt_path = Path(__file__).parent.parent / 'config' / 'vapi-system-prompt-with-tools.txt'
@@ -43,13 +55,13 @@ def save_assistant_id(assistant_id):
 
     print("\nID assistente salvato in: {}".format(id_file))
 
-def create_assistant(name=None, voice_provider='11labs'):
+def create_assistant(name=None, voice_provider=None):
     """
-    Crea un nuovo assistente su Vapi.ai.
+    Crea un nuovo assistente su Vapi.ai usando il template assistant-existing.json.
 
     Args:
-        name: Nome dell'assistente (default: "Assistente Comune Codroipo")
-        voice_provider: Provider voce ('11labs' o 'openai')
+        name: Nome dell'assistente (override del template)
+        voice_provider: Provider voce ('11labs' o 'openai', override del template)
 
     Returns:
         dict: Informazioni assistente creato, o None se errore
@@ -60,74 +72,66 @@ def create_assistant(name=None, voice_provider='11labs'):
         print("Crea un file .env con: VAPI_API_KEY=your_key")
         return None
 
-    # Nome di default
-    if not name:
-        name = "Assistente Comune Codroipo"
-
     print("\nCreazione nuovo assistente...")
-    print("Nome: {}".format(name))
+
+    # Carica configurazione dal template
+    config = load_template_config()
+
+    if not config:
+        print("ERRORE: Impossibile caricare template!")
+        return None
+
+    print("✓ Template caricato da assistant-existing.json")
+
+    # Override nome se specificato
+    if name:
+        config["name"] = name
+        print("  Nome personalizzato: {}".format(name))
+    else:
+        print("  Nome: {}".format(config.get("name", "N/A")))
+
+    # Override voice provider se specificato
+    if voice_provider:
+        if voice_provider == '11labs':
+            config["voice"] = {
+                "provider": "11labs",
+                "voiceId": "Og6C5DgTHIScy85Fgh41",
+                "model": "eleven_turbo_v2_5",
+                "stability": 0.5,
+                "similarityBoost": 0.75
+            }
+            print("  Voice: ElevenLabs (override)")
+        elif voice_provider == 'openai':
+            config["voice"] = {
+                "provider": "openai",
+                "voiceId": "alloy"
+            }
+            print("  Voice: OpenAI (override)")
+    else:
+        print("  Voice: {} (dal template)".format(config.get("voice", {}).get("provider", "N/A")))
+
+    # Aggiorna system prompt dal file dedicato
+    system_prompt = load_system_prompt()
+    if "model" not in config:
+        config["model"] = {}
+    config["model"]["messages"] = [
+        {
+            "role": "system",
+            "content": system_prompt
+        }
+    ]
+    print("✓ System prompt aggiornato da file")
+
+    # Rimuovi knowledgeBase e toolIds dal template (saranno linkati dopo)
+    if "model" in config and "knowledgeBase" in config["model"]:
+        del config["model"]["knowledgeBase"]
+        print("  (knowledgeBase rimossa - linkarla con update_assistant.py)")
+
     print()
 
     headers = {
         'Authorization': 'Bearer {}'.format(VAPI_API_KEY),
         'Content-Type': 'application/json'
-    }
-
-    # Carica system prompt
-    system_prompt = load_system_prompt()
-
-    # Configurazione voice
-    if voice_provider == '11labs':
-        voice_config = {
-            "provider": "11labs",
-            "voiceId": "Og6C5DgTHIScy85Fgh41",  # Voce italiana femminile
-            "model": "eleven_turbo_v2_5",
-            "stability": 0.5,
-            "similarityBoost": 0.75,
-            "language": "it"
-        }
-    else:
-        voice_config = {
-            "provider": "openai",
-            "voiceId": "alloy"
-        }
-
-    # Configurazione completa assistente
-    config = {
-        "name": name,
-        "transcriber": {
-            "provider": "deepgram",
-            "model": "nova-2",
-            "language": "it"
-        },
-        "model": {
-            "provider": "openai",
-            "model": "gpt-4o",
-            "temperature": 0.7,
-            "maxTokens": 1000,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": system_prompt
-                }
-            ]
-        },
-        "voice": voice_config,
-        "firstMessage": "Buongiorno! Sono l'assistente virtuale del Comune di Codroipo. Come posso aiutarti oggi?",
-        "endCallMessage": "Grazie per aver contattato il Comune di Codroipo. Buona giornata!",
-        "endCallPhrases": [
-            "grazie arrivederci",
-            "chiudo",
-            "basta così",
-            "ho finito"
-        ],
-        "silenceTimeoutSeconds": 20,
-        "responseDelaySeconds": 0.4,
-        "maxDurationSeconds": 600,
-        "backgroundSound": "office",
-        "backchannelingEnabled": True,
-        "backgroundDenoisingEnabled": True,
-        "modelOutputInMessagesEnabled": True
     }
 
     print("Invio richiesta a Vapi.ai...")
@@ -206,20 +210,20 @@ def main():
         epilog="""
 Esempi d'uso:
 
-  # Crea assistente con nome di default
+  # Crea assistente usando template assistant-existing.json
   python scripts/create_assistant.py
 
   # Crea assistente con nome personalizzato
   python scripts/create_assistant.py --name "Il Mio Assistente"
 
-  # Crea assistente con voce OpenAI
+  # Crea assistente con voce OpenAI (override template)
   python scripts/create_assistant.py --voice openai
 
   # Forza creazione senza conferma
   python scripts/create_assistant.py --force
 
 IMPORTANTE:
-Questo script crea un NUOVO assistente su Vapi.ai.
+Questo script crea un NUOVO assistente su Vapi.ai usando il template.
 Se hai già un assistente configurato, usa update_assistant.py
         """
     )
@@ -233,8 +237,7 @@ Se hai già un assistente configurato, usa update_assistant.py
     parser.add_argument(
         '--voice',
         choices=['11labs', 'openai'],
-        default='11labs',
-        help='Provider voce (default: 11labs)'
+        help='Provider voce (default: usa template)'
     )
 
     parser.add_argument(

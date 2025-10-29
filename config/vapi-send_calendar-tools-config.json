@@ -1,0 +1,60 @@
+{
+  "type": "google.calendar.event.create",
+  "function": {
+    "name": "google_calendar_book_appointment",
+    "description": "Crea un appuntamento sul calendario Google del Comune di Codroipo. Usa questo tool SOLO dopo aver verificato la disponibilità con google_calendar_check_availability. DA CHIAMARE PRIMA del tool email di conferma.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Titolo dell'appuntamento (es: 'Appuntamento Carta d'Identità - Mario Rossi')"
+        },
+        "description": {
+          "type": "string",
+          "description": "Descrizione dettagliata dell'appuntamento includendo il servizio richiesto e i documenti necessari"
+        },
+        "date": {
+          "type": "string",
+          "description": "Data dell'appuntamento in formato YYYY-MM-DD (es: '2025-11-15')"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Ora inizio appuntamento in formato HH:MM (es: '10:00')"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "Ora fine appuntamento in formato HH:MM (es: '10:30'). Se non specificato, durata default 30 minuti"
+        },
+        "attendeeName": {
+          "type": "string",
+          "description": "Nome e cognome del cittadino (es: 'Mario Rossi')"
+        },
+        "attendeeEmail": {
+          "type": "string",
+          "description": "Email del cittadino per la conferma (es: 'mario.rossi@example.com')"
+        }
+      },
+      "required": ["summary", "date", "startTime", "attendeeName", "attendeeEmail"]
+    }
+  },
+  "messages": [
+    {
+      "type": "request-start",
+      "content": "Perfetto, sto prenotando l'appuntamento sul calendario...",
+      "blocking": true
+    },
+    {
+      "type": "request-complete",
+      "content": "Appuntamento creato con successo! Ora invio l'email di conferma."
+    },
+    {
+      "type": "request-failed",
+      "content": "Mi dispiace, si è verificato un errore nella creazione dell'appuntamento. Potrebbe essere che l'orario non sia più disponibile. Posso verificare nuovamente la disponibilità?"
+    }
+  ],
+  "metadata": {
+    "calendarId": "12dcba0053363cd4ae2f4c0b814b625b17881e86dd72cb52e3dd8e6ae800e27e@group.calendar.google.com",
+    "timeZone": "Europe/Rome"
+  }
+}

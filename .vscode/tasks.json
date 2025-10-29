@@ -2,155 +2,32 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "🚀 Setup Full Pipeline",
+      "label": "Create Assistant",
       "type": "shell",
       "command": "${workspaceFolder}/.venv/bin/python",
-      "args": ["scraper/setup_full_pipeline.py"],
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "dedicated",
-        "showReuseMessage": false
-      }
+      "args": ["scripts/create_assistant.py"],
+      "problemMatcher": []
     },
     {
-      "label": "✅ Validate All Data",
+      "label": "Update Assistant",
       "type": "shell",
       "command": "${workspaceFolder}/.venv/bin/python",
-      "args": ["scraper/validate_data.py"],
-      "problemMatcher": [],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
+      "args": ["scripts/update_assistant.py"],
+      "problemMatcher": []
     },
     {
-      "label": "ℹ️ Get Assistant Info",
-      "type": "shell",
-      "command": "${workspaceFolder}/.venv/bin/python",
-      "args": ["scripts/get_assistant_info.py"],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "💾 Save Assistant Backup",
-      "type": "shell",
-      "command": "${workspaceFolder}/.venv/bin/python",
-      "args": ["scripts/get_assistant_info.py", "--save"],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🔄 Update System Prompt",
-      "type": "shell",
-      "command": "${workspaceFolder}/.venv/bin/python",
-      "args": ["scripts/update_assistant.py", "--type", "prompt"],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📤 Upload Knowledge Base",
+      "label": "Upload Knowledge Base",
       "type": "shell",
       "command": "${workspaceFolder}/.venv/bin/python",
       "args": ["scripts/upload_knowledge_base.py"],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
+      "problemMatcher": []
     },
     {
-      "label": "🔗 Link Knowledge Base",
+      "label": "Create Tools",
       "type": "shell",
       "command": "${workspaceFolder}/.venv/bin/python",
-      "args": ["scripts/link_knowledge_base.py"],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🌐 Open Vapi Dashboard",
-      "type": "shell",
-      "command": "open",
-      "args": ["https://dashboard.vapi.ai"],
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "never"
-      }
-    },
-    {
-      "label": "🧹 Clean Generated Files",
-      "type": "shell",
-      "command": "rm",
-      "args": [
-        "-f",
-        "scraper/services_data_real.json",
-        ".knowledge-base-ids.txt",
-        ".tool-ids.txt"
-      ],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📦 Install Dependencies",
-      "type": "shell",
-      "command": "${workspaceFolder}/.venv/bin/pip",
-      "args": ["install", "-r", "requirements.txt"],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "dedicated"
-      }
-    },
-    {
-      "label": "🎭 Install Playwright",
-      "type": "shell",
-      "command": "${workspaceFolder}/.venv/bin/playwright",
-      "args": ["install", "chromium"],
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "dedicated"
-      }
+      "args": ["scripts/create_tool.py"],
+      "problemMatcher": []
     }
   ]
 }

@@ -2,198 +2,31 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "🚀 Setup Full Pipeline (Master)",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scraper/setup_full_pipeline.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "🕷️ Scrape Real Data",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scraper/scrape_real.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "📝 Generate Knowledge Base",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scraper/generate_knowledge_base.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "✅ Validate Data",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scraper/validate_data.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "ℹ️ Get Assistant Info",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/get_assistant_info.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "💾 Get Assistant Info + Save Backup",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/get_assistant_info.py",
-      "args": ["--save"],
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "💾 Get Assistant Info + JSON",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/get_assistant_info.py",
-      "args": ["--json"],
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "📤 Upload Knowledge Base",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/upload_knowledge_base.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "🔗 Link Knowledge Base",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/link_knowledge_base.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "🔄 Update Assistant - Prompt",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/update_assistant.py",
-      "args": ["--type", "prompt"],
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "🔄 Update Assistant - Voice",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/update_assistant.py",
-      "args": ["--type", "voice"],
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "🔄 Update Assistant - Model",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/update_assistant.py",
-      "args": ["--type", "model"],
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "🔧 Create Email Tool",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/create_tool.py",
-      "args": ["--url", "https://your-server-url/send-appointment-confirmation"],
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "🔗 Link Tool to Assistant",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/scripts/link_tool_to_assistant.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    },
-    {
-      "name": "📧 Email Tool Server (Flask)",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${workspaceFolder}/tools/email_reminder.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python",
-      "env": {
-        "FLASK_ENV": "development",
-        "FLASK_DEBUG": "1"
-      }
-    },
-    {
-      "name": "🧪 Test Email Tool (cURL)",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "curl -X POST http://localhost:5001/send-appointment-confirmation -H 'Content-Type: application/json' -d '{\"citizen_email\":\"test@example.com\",\"citizen_name\":\"Mario Rossi\",\"service\":\"Carta Identità\",\"date\":\"2025-11-15\",\"time\":\"10:00\",\"documents\":[\"Documento scaduto\",\"Codice fiscale\"]}'",
-      "cwd": "${workspaceFolder}"
-    },
-    {
       "name": "Python: Current File",
       "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
-      "justMyCode": true,
-      "python": "${workspaceFolder}/.venv/bin/python"
-    }
-  ],
-  "compounds": [
-    {
-      "name": "🎯 Full Setup Workflow",
-      "configurations": [
-        "🚀 Setup Full Pipeline (Master)"
-      ],
-      "presentation": {
-        "group": "1-workflow",
-        "order": 1
-      }
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceFolder}"
     },
     {
-      "name": "📧 Test Email Tool (Server + Test)",
-      "configurations": [
-        "📧 Email Tool Server (Flask)"
-      ],
-      "presentation": {
-        "group": "2-tools",
-        "order": 1
-      }
+      "name": "Create Assistant",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/create_assistant.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceFolder}"
     },
     {
-      "name": "📊 Check Status",
-      "configurations": [
-        "💾 Get Assistant Info + Save Backup",
-        "✅ Validate Data"
-      ],
-      "presentation": {
-        "group": "3-monitoring",
-        "order": 1
-      }
+      "name": "Update Assistant",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/update_assistant.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

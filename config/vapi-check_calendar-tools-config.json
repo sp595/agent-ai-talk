@@ -1,0 +1,44 @@
+{
+  "type": "google.calendar.availability.check",
+  "function": {
+    "name": "google_calendar_check_availability",
+    "description": "Verifica la disponibilità sul calendario Google del Comune di Codroipo per una determinata data e fascia oraria. Restituisce gli slot disponibili.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "Data da verificare in formato YYYY-MM-DD (es: '2025-11-15')"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Ora inizio ricerca in formato HH:MM (es: '09:00'). Default: inizio giornata lavorativa"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "Ora fine ricerca in formato HH:MM (es: '17:00'). Default: fine giornata lavorativa"
+        }
+      },
+      "required": ["date"]
+    }
+  },
+  "messages": [
+    {
+      "type": "request-start",
+      "content": "Un attimo, sto verificando la disponibilità sul calendario...",
+      "blocking": false
+    },
+    {
+      "type": "request-complete",
+      "content": "Ho verificato la disponibilità. Ecco gli orari disponibili."
+    },
+    {
+      "type": "request-failed",
+      "content": "Mi dispiace, non riesco a verificare la disponibilità al momento. Riprova tra poco o contatta direttamente l'ufficio."
+    }
+  ],
+  "metadata": {
+    "calendarId": "12dcba0053363cd4ae2f4c0b814b625b17881e86dd72cb52e3dd8e6ae800e27e@group.calendar.google.com",
+    "timeZone": "Europe/Rome"
+  }
+}

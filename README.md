@@ -1,121 +1,114 @@
 # Assistente Virtuale Comune di Codroipo
 
-Assistente vocale AI per gestire prenotazioni e fornire informazioni sui servizi comunali.
+Assistente vocale AI per il Comune di Codroipo (UD) che gestisce prenotazioni appuntamenti e fornisce informazioni sui servizi comunali.
 
 ## 🚀 Quick Start
 
 ```bash
 # 1. Setup ambiente
 python3 -m venv .venv
-source .venv/bin/activate  # o .venv\Scripts\activate su Windows
+source .venv/bin/activate  # su Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-# 2. Configura variabili
-echo "VAPI_API_KEY=tua_key" > .env
-echo "MAILTRAP_API_TOKEN=tua_key" >> .env
+# 2. Configura .env
+echo "VAPI_API_KEY=your_key" > .env
+echo "MAILTRAP_API_TOKEN=your_key" >> .env
 
-# 3. Setup knowledge base
-python scraper/setup_full_pipeline.py
+# 3. Crea assistente
+python scripts/create_assistant.py
 
-# 4. Aggiorna system prompt
+# 4. Carica knowledge base
+python scripts/upload_knowledge_base.py
+
+# 5. Configura tools (email + calendar)
+python scripts/upload_tool.py      # Email tool
+python scripts/create_tool.py      # Tutti i tools
+
+# 6. Linka tutto
 python scripts/update_assistant.py
 ```
 
-## 📁 Struttura Progetto
+## 📁 Struttura
 
 ```
-├── config/                          # Configurazioni
-│   ├── vapi-system-prompt.txt      # System prompt assistente
-│   └── vapi-tools-config.json      # Tool email Mailtrap
-├── knowledge-base/                  # File servizi comunali
-├── scripts/                         # Script gestione VAPI
-└── scraper/                         # Scraper sito comunale
+├── config/
+│   ├── assistant-existing.json           # Template assistente (pulito)
+│   ├── vapi-system-prompt-with-tools.txt # System prompt
+│   ├── vapi-tools-config.json            # Tool email
+│   ├── vapi-check_calendar-tools-config.json
+│   └── vapi-send_calendar-tools-config.json
+├── knowledge-base/                       # Servizi comunali (Markdown)
+└── scripts/                              # Script gestione VAPI
 ```
 
-## 🔑 Features
+## ✨ Funzionalità
 
-- ✅ Prenotazione appuntamenti (Google Calendar)
-- ✅ Informazioni servizi da knowledge base
-- ✅ Conferma email automatica (Mailtrap)
-- ✅ Pronuncia italiana corretta
-- ✅ Scraping automatico servizi comunali
+- 🗓️ Prenotazione appuntamenti su Google Calendar
+- 📚 Consulta knowledge base per info servizi
+- 📧 Email conferma automatica (Mailtrap)
+- 🇮🇹 Pronuncia italiana corretta (date, email, numeri)
+- 🔧 Gestione template-based per configurazione
 
 ## 📚 Comandi Principali
 
-### Knowledge Base
+### Gestione Assistente
 ```bash
-# Setup completo automatico
-python scraper/setup_full_pipeline.py
+# Crea nuovo assistente (usa template)
+python scripts/create_assistant.py
 
-# Aggiorna solo KB
-python scripts/upload_knowledge_base.py
-python scripts/link_knowledge_base.py
-```
-
-### System Prompt
-```bash
-# Aggiorna prompt
+# Aggiorna assistente (auto-linka KB e tools)
 python scripts/update_assistant.py
 
-# Verifica config
+# Info assistente
 python scripts/get_assistant_info.py
 ```
 
-### Tool Email
+### Knowledge Base
 ```bash
-# Aggiorna tool Mailtrap
-python scripts/upload_tool.py --update TOOL_ID
+# Carica file KB su VAPI
+python scripts/upload_knowledge_base.py
 
-# Test API
-python tools/test_mailtrap.py
+# Poi linka con update_assistant.py
+```
+
+### Tools
+```bash
+# Crea secret + email tool (all-in-one)
+python scripts/upload_tool.py
+
+# Oppure modularmente
+python scripts/create_secret.py
+python scripts/create_tool.py  # Crea tutti i tools
+
+# Poi linka con update_assistant.py
 ```
 
 ## ⚙️ Configurazione
 
-### File `.env`
+### Variabili ambiente (.env)
 ```bash
-VAPI_API_KEY=your_key          # Da https://dashboard.vapi.ai/settings
-MAILTRAP_API_TOKEN=your_key    # Da https://mailtrap.io/api-tokens
+VAPI_API_KEY=your_key          # https://dashboard.vapi.ai/settings
+MAILTRAP_API_TOKEN=your_key    # https://mailtrap.io/api-tokens
 ```
 
-### VAPI Dashboard
-
-1. **Credenziale Mailtrap**: Dashboard → Credentials → New → API Key
-2. **Tool Email**: Collega credenziale al tool `send_appointment_confirmation_email`
-3. **System Prompt**: Aggiorna dalla dashboard o via script
+### Template Assistente
+Il file `config/assistant-existing.json` è il template master:
+- Modifica qui voice, transcriber, settings
+- Usa `update_assistant.py` per applicare modifiche
+- KB e tools vengono linkati automaticamente
 
 ## 📖 Documentazione
 
-- `scripts/README.md` - Script Python disponibili
-- `scraper/README.md` - Scraping e knowledge base
+Vedi `scripts/README.md` per dettagli su tutti gli script disponibili.
 
-## 🧪 Test
+## 🔗 Workflow Template-Based
 
-```bash
-# Test email
-python tools/test_mailtrap.py
-
-# Test chiamata
-# Vai su dashboard.vapi.ai e fai una chiamata di test
-```
-
-## 🆘 Troubleshooting
-
-**"VAPI_API_KEY non trovata"**
-→ Crea file `.env` con key da dashboard VAPI
-
-**"Assistente non consulta KB"**
-→ Verifica files caricati su dashboard → Knowledge Base
-
-**"Email in inglese"**
-→ Dashboard → Assistant → Voice → Lingua: it-IT
+1. **Template**: Modifica `config/assistant-existing.json`
+2. **Apply**: Lancia `update_assistant.py`
+3. **Auto-link**: KB e tools linkati automaticamente se presenti `.knowledge-base-ids` e `.tool-ids`
 
 ## 🔗 Links
 
-- [VAPI Dashboard](https://dashboard.vapi.ai)
-- [Mailtrap](https://mailtrap.io)
-- [Comune Codroipo](https://www.comune.codroipo.ud.it)
-
-## 📝 License
-
-MIT
+- [VAPI Dashboard](https://dashboard.vapi.ai) - Gestione assistente
+- [Mailtrap](https://mailtrap.io) - Email testing
+- [Comune di Codroipo](https://www.comune.codroipo.ud.it)
